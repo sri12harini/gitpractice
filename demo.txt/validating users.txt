@@ -1,0 +1,59 @@
+import java.util.*;
+import java.lang.*;
+import java.util.regex.*;
+
+class TransactionParty {
+String seller;
+String buyer;
+public TransactionParty(String seller, String buyer)
+{
+this.seller=seller;
+this.buyer=buyer;
+}
+}
+class Receipt{
+TransactionParty transactionParty;
+String productsQR;
+public Receipt(TransactionParty transactionParty, String productsQR)
+{
+this.transactionParty=transactionParty;
+this.productsQR=productsQR;
+}
+}
+class GenerateReceipt{
+public int verifyParty(Receipt r)
+{
+String s1=r.transactionParty.seller;
+String s2=r.transactionParty.buyer;
+int i=0;
+if(s1.matches("^[a-zA-Z][a-zA-Z' -]*[a-zA-Z]$")&&s2.matches("^[a-zA-Z][a-zA-Z' -]*[a-zA-Z]$"))
+i=2;
+else if(s1.matches("^[a-zA-Z][a-zA-Z' -]*[a-zA-Z]$")||s2.matches("^[a-zA-Z][a-zA-Z' -]*[a-zA-Z]$"))
+i=1;
+return i;
+}
+public String calcGST(Receipt r)
+{
+String s=r.productsQR;
+String s1[] = s.split("@");
+float sum=0;
+for(String i:s1)
+{
+String[] s2=i.split(",");
+int k=1;
+for(String j:s2)
+{
+k*=Integer.parseInt(j);
+}
+sum=sum+k;
+}
+sum=(sum/100)*12;
+String z=String.format("%d",(int)sum);
+return z;
+}
+}
+class Source{
+public static void main(String[] args){
+}
+} 
+
